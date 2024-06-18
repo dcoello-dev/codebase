@@ -24,4 +24,4 @@ vim.api.nvim_create_user_command(
   { nargs = '?' }
 )
 
-sn.setup()
+sn.setup({storage_path = "~/.local/share/nvim/lazy/codebase/ideas/"})
