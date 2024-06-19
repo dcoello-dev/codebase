@@ -1,5 +1,7 @@
-# idea: parse_cli_args
-# description: parse cli args in python scripts
+# sandbox_idea: parse_cli_args
+# sandbox_name: parse_cli_args
+# sandbox_description: how to parse cli arguments in bash
+# sandbox_env: python
 
 import os
 import json

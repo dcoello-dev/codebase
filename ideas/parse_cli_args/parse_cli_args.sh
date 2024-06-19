@@ -1,5 +1,7 @@
-# idea: parse_cli_args
-# description: how to parse cli arguments in bash
+# sandbox_idea: parse_cli_args
+# sandbox_name: parse_cli_args
+# sandbox_description: how to parse cli arguments in bash
+# sandbox_env: bash
 
 function usage(){
   echo "bash ${BASH_SOURCE[0]} args"
