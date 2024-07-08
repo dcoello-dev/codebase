@@ -34,6 +34,26 @@ parser.add_argument(
     default=-1,
     help="index")
 
+# subparsers for conditional modes
+subparsers = parser.add_subparsers(dest='subcommand')
+subparsers.required = True  # required since 3.7
+
+#  subparser for dump
+parser_dump = subparsers.add_parser('dump')
+# add a required argument
+parser_dump.add_argument(
+    'format',
+    choices=['csv', 'json'],
+    help='Dump the file in this format.')
+
+#  subparser for upload
+parser_upload = subparsers.add_parser('upload')
+# add a required argument
+parser_upload.add_argument(
+    'server',
+    choices=['amazon', 'imgur'],
+    help='Upload the file to this service.')
+
 # once arguments are created it is time to parse it
 args = parser.parse_args()
 
