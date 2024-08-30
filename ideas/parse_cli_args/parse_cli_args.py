@@ -54,6 +54,12 @@ parser_upload.add_argument(
     choices=['amazon', 'imgur'],
     help='Upload the file to this service.')
 
+parser.add_argument(
+    '-v', '--var',
+    action='append',
+    help='append argument in a list',
+)
+
 # once arguments are created it is time to parse it
 args = parser.parse_args()
 
