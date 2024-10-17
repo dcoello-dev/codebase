@@ -37,6 +37,7 @@ template = """# sandbox_idea: regex/
 # sandbox_env: regex
 
 import re
+import json
 
 INPUT_TEXT=\"\"\"
 
@@ -77,3 +78,30 @@ ext = ""
 execution = "batcat ${file_path}"
 format = ""
 template = """"""
+
+[xclip]
+ext = ""
+execution = "xclip -sel clip ${file_path}"
+format = ""
+template = """"""
+
+[mermaid]
+ext = "mmd"
+execution = "F_PATH=$(realpath ${file_path}) && DIR=$(dirname $F_PATH) && FILE=$(basename ${file_path}) && docker run --rm -u `id -u`:`id -g` -v $DIR:/data/ minlag/mermaid-cli -i $FILE && wslview ${file_path}.svg && rm ${file_path}.svg"
+format = ""
+template = """%% sandbox_idea: 
+%% sandbox_name: 
+%% sandbox_description: 
+%% sandbox_env: mermaid
+
+classDiagram
+    namespace dmcl {
+        class Implementation 
+    }
+    namespace mock {
+        class IApplication{
+            <<Interface>>
+        }
+    }
+    Implementation --|> IApplication
+"""
