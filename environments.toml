@@ -1,0 +1,79 @@
+[cpp]
+ext = "cpp"
+execution = "g++ ${file_path} -o out && ./out && rm out"
+format = "clang-format -i ${file_path}"
+template = """// sandbox_idea:
+// sandbox_name:
+// sandbox_description:
+// sandbox_env: cpp
+
+#include <iostream>
+
+int main(void) {
+    std::cout << "Hello World!" << std::endl;
+    return 0;
+}"""
+
+[python]
+ext = "py"
+execution = "python3 ${file_path}"
+format = "autopep8 -i ${file_path}"
+template = """# sandbox_idea: 
+# sandbox_name: 
+# sandbox_description: 
+# sandbox_env: python
+
+if __name__ == "__main__":
+    print("Hello World!")
+"""
+
+[regex]
+ext = "py"
+execution = "python3 ${file_path}"
+format = "autopep8 -i ${file_path}"
+template = """# sandbox_idea: regex/
+# sandbox_name: 
+# sandbox_description: 
+# sandbox_env: regex
+
+import re
+
+INPUT_TEXT=\"\"\"
+
+\"\"\"
+
+INPUT_REGEX=r" "
+
+if __name__ == "__main__":
+    print(json.dumps(list(re.findall(INPUT_REGEX, INPUT_TEXT)), indent=2))
+"""
+
+[bash]
+ext = "sh"
+execution = "bash ${file_path}"
+format = ""
+template = """# sandbox_idea: 
+# sandbox_name: 
+# sandbox_description: 
+# sandbox_env: bash
+
+echo("Hello World!")
+"""
+
+[markdown]
+ext = "md"
+execution = "glow ${file_path}"
+format = ""
+template = """[//]: # (sandbox_idea: )
+[//]: # (sandbox_name: )
+[//]: # (sandbox_description: )
+[//]: # (sandbox_env: markdown)
+
+# IDEA
+"""
+
+[echo]
+ext = ""
+execution = "batcat ${file_path}"
+format = ""
+template = """"""
