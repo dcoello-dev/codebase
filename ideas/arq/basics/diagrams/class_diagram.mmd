@@ -1,0 +1,18 @@
+%% sandbox_idea: arq/basics/diagrams
+%% sandbox_name: class_diagram
+%% sandbox_description: 
+%% sandbox_env: mermaid
+
+classDiagram
+    namespace dmcl {
+        class Implementation 
+    }
+    namespace mock {
+        class IApplication{
+            <<Interface>>
+        }
+        class Hola
+    }
+    Implementation --|> IApplication
+    
+
