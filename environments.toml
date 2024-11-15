@@ -105,3 +105,25 @@ classDiagram
     }
     Implementation --|> IApplication
 """
+
+[plantuml]
+ext = "puml"
+execution = "cat ${file_path} | plantuml -utxt -pipe > gen.utxt ; cat gen.utxt && rm gen.utxt"
+format = ""
+template = """@startuml
+' sandbox_idea: 
+' sandbox_name: 
+' sandbox_description: 
+' sandbox_env: plantuml
+class Dummy {
+  String data
+  void methods()
+}
+
+class Flight {
+   flightNumber : Integer
+   departureTime : Date
+}
+@enduml
+"""
+
