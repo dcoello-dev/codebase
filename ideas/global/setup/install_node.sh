@@ -3,13 +3,17 @@
 # sandbox_description: install node and npm
 # sandbox_env: bash
 
-sudo apt-get update
-sudo apt install curl
+# installs fnm (Fast Node Manager)
+curl -fsSL https://fnm.vercel.app/install | bash
 
-# check nodesource for latest version
-curl -fsSL https://deb.nodesource./setup_20.x | sudo bash -
+# activate fnm
+source ~/.bashrc
 
-sudo apt-get install nodejs
+# download and install Node.js
+fnm use --install-if-missing 23
 
-nodejs -v
-npm -v
+# verifies the right Node.js version is in the environment
+node -v # should print `v23.1.0`
+
+# verifies the right npm version is in the environment
+npm -v # should print `10.9.0`
