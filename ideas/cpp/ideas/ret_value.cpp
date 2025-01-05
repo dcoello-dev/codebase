@@ -14,6 +14,7 @@ public:
 
 template <typename T, typename F = Functor<T>> class RetValue {
 public:
+  using InnerType = T;
   RetValue(T &&value) noexcept
       : mValue(std::forward<T>(value)), mStatus(F::condition(value)) {}
 
@@ -68,7 +69,54 @@ public:
 template <typename T, T min, T max>
 using RangeValue = RetValue<T, RangeCondition<T, min, max>>;
 
+using SpeedValue = RangeValue<int, 0, 400>;
+
+template<class...>
+using void_t = void;
+
+template<class T, class = void_t<>>
+struct is_ret_value :std::false_type {
+  static const bool value = false;
+  template<typename I>
+  using type = I;
+};
+
+template<class T>
+struct is_ret_value<T, void_t<typename T::InnerType>>: std::true_type {
+  static const bool value = true;
+  template<typename I>
+  using type = I&;
+};
+
+/// functions that can only be use with RetValues
+template <typename T, bool is_ret = is_ret_value<T>::value> 
+typename std::enable_if<is_ret, bool>::type enable_if_ret_val(T & value) noexcept {
+  if (value){
+    std::cout << "value is correct" << std::endl;
+  } else {
+    std::cout << "value is incorrect" << std::endl;
+  }
+  return true;
+}
+
+template <typename T>
+bool use_inner_or_ret(typename is_ret_value<T>::template type<SpeedValue> value) noexcept {
+  if (value){
+    std::cout << "value is correct" << std::endl;
+  } else {
+    std::cout << "value is incorrect" << std::endl;
+  }
+  return true;
+}
+
 int main(void) {
+  
+  // enable_if_ret_val(500);
+  SpeedValue speed_value{100};
+  enable_if_ret_val<SpeedValue>(speed_value);
+  use_inner_or_ret<decltype(speed_value)>(speed_value);
+  use_inner_or_ret<decltype(501)>(501);
+
   RetValue<int> value{1};
   if (value) {
     std::cout << "is correct" << std::endl;
