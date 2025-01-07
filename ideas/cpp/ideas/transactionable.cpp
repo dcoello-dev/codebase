@@ -16,6 +16,8 @@ template <typename T> class ITransactionable {
 
     const T &read() const noexcept { return data_; }
 
+    void doit() noexcept { data_.doit(); }
+
   private:
     std::unique_lock<std::mutex> lk_;
     T &data_;
@@ -23,8 +25,11 @@ template <typename T> class ITransactionable {
 
 public:
   Transaction transaction() noexcept {
-    return Transaction(std::unique_lock<std::mutex>(mMutex), *static_cast<T *>(this));
+    return Transaction(std::unique_lock<std::mutex>(mMutex),
+                       *static_cast<T *>(this));
   }
+
+  virtual void doit() noexcept = 0;
 
 private:
   std::mutex mMutex{};
@@ -32,15 +37,15 @@ private:
 
 class Thing : public ITransactionable<Thing> {
 public:
-  void step1() {
-    std::cout << "step 1" << std::endl;
+  void doit() noexcept override {
+    step1();
+    step2();
+    step3();
   }
-  void step2() {
-    std::cout << "step 2" << std::endl;
-  }
-  void step3() { 
-    std::cout << "step 3" << std::endl;
-  }
+
+  void step1() { std::cout << "step 1" << std::endl; }
+  void step2() { std::cout << "step 2" << std::endl; }
+  void step3() { std::cout << "step 3" << std::endl; }
 };
 
 int main(void) {
@@ -48,8 +53,8 @@ int main(void) {
   {
     auto transaction = t.transaction();
     transaction.write().step1();
-    transaction.write().step2();
-    transaction.write().step3();
   }
+
+  t.transaction().doit();
   return 0;
 }
