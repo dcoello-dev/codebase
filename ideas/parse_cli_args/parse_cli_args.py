@@ -60,6 +60,10 @@ parser.add_argument(
     help='append argument in a list',
 )
 
+# pipe text and get all remainder arguments as string
+parser.add_argument('text', nargs=argparse.REMAINDER)
+parser.add_argument('stdin', nargs='?',
+
 # once arguments are created it is time to parse it
 args = parser.parse_args()
 
