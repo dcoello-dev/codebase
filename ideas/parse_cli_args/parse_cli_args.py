@@ -62,7 +62,7 @@ parser.add_argument(
 
 # pipe text and get all remainder arguments as string
 parser.add_argument('text', nargs=argparse.REMAINDER)
-parser.add_argument('stdin', nargs='?',
+parser.add_argument('stdin', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
 
 # once arguments are created it is time to parse it
 args = parser.parse_args()
